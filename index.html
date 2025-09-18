@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Говорящие Зверята</title>
+    <meta name="description" content="Интерактивное приложение для изучения животных на русском языке">
+    <link rel="stylesheet" href="css/embedded-styles.css">
+</head>
+<body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Перейти к основному содержанию</a>
+    
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-container">
+        <div class="spinner"></div>
+        <p class="loading-text">Загрузка...</p>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container" style="display: none;">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+        </button>
+
+        <!-- Back Button -->
+        <button id="back-button" class="back-button hidden" aria-label="Назад к уровням">
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+        </button>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content" role="main" aria-live="polite">
+            <!-- Level Selection View -->
+            <section id="level-selection" class="view" aria-labelledby="level-selection-title">
+                <h1 id="level-selection-title" class="sr-only">Выбор уровня</h1>
+                <div class="level-selection-container">
+                    <button id="level-1-btn" class="level-button" aria-label="Уровень 1: Изучение">
+                        Уровень 1
+                    </button>
+                    <button id="level-2-btn" class="level-button" aria-label="Уровень 2: Викторина">
+                        Уровень 2
+                    </button>
+                </div>
+            </section>
+
+            <!-- Level 1 View -->
+            <section id="level-1" class="view hidden" aria-labelledby="level-1-title">
+                <h2 id="level-1-title" class="level-title">Уровень 1: Изучаем животных</h2>
+                <div id="level-1-scroll" class="scroll-area" role="region" aria-label="Список животных для изучения">
+                    <div id="level-1-grid" class="animal-grid" role="grid" aria-label="Животные"></div>
+                </div>
+            </section>
+
+            <!-- Level 2 View -->
+            <section id="level-2" class="view hidden" aria-labelledby="level-2-title">
+                <h2 id="level-2-title" class="level-title">Уровень 2: Угадай животное</h2>
+                <div class="quiz-info" role="group" aria-labelledby="quiz-question">
+                    <p id="quiz-question" class="quiz-question">Какое это животное?</p>
+                    <button id="repeat-sound" class="repeat-button" aria-label="Повторить звук">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728m-5.657-2.121a3 3 0 010-4.243m-7.07 7.071L9 9l-1.414-1.414M9 9v6m3-3H9"></path>
+                        </svg>
+                        Повторить звук
+                    </button>
+                </div>
+                
+                <div id="feedback" class="feedback hidden" role="alert" aria-live="assertive"></div>
+                
+                <div id="level-2-scroll" class="scroll-area" role="region" aria-label="Варианты ответов">
+                    <div id="level-2-grid" class="quiz-grid" role="radiogroup" aria-labelledby="quiz-question"></div>
+                </div>
+                
+                <button id="next-question" class="next-question-button" aria-label="Следующий вопрос">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Следующий вопрос
+                </button>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer id="app-footer" class="app-footer">
+            © <span id="current-year"></span> Говорящие Зверята. Учим весело!
+        </footer>
+
+        <!-- Fullscreen FAB -->
+        <button id="fullscreen-fab" class="fullscreen-fab hidden" aria-label="Войти в полноэкранный режим">
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+        </button>
+
+        <!-- Fullscreen Tooltip -->
+        <div id="fullscreen-tooltip" class="fullscreen-tooltip hidden">
+            <span>Нажмите</span> 
+            <svg class="inline-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5"></path>
+            </svg>
+            <span>для полноэкранного режима.</span>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Cordova Scripts (for mobile apps) -->
+    <script type="text/javascript" src="cordova.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="js/app-complete.js"></script>
+</body>
+</html>
