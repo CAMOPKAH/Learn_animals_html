@@ -561,6 +561,7 @@ class AnimalApp {
         this.isGuessing = false;
         this.showFeedback = null;
         this.updateLevel2UI();
+        await this.repeatSound();
       }
     }, 1500);
   }
@@ -632,4 +633,5 @@ setTimeout(() => {
     console.log('Fallback initialization triggered');
     initializeApp();
   }
+
 }, 3000);
